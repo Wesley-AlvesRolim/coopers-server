@@ -28,4 +28,16 @@ export class AuthController {
     }
     return user;
   }
+
+  @Post('/register')
+  async register(
+    @Body('username') username: string,
+    @Body('password') password: string,
+  ): Promise<void> {
+    try {
+      await this.userRepository.create(username, password);
+    } catch (error) {
+      throw new HttpException('User already exists', HttpStatus.FORBIDDEN);
+    }
+  }
 }

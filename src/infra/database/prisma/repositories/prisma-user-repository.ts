@@ -7,6 +7,12 @@ import { PrismaDatabaseService } from '../prisma-database.service';
 export class PrismaUserRepository implements UserRepository {
   constructor(private readonly prismaService: PrismaDatabaseService) {}
 
+  async create(username: string, password: string): Promise<void> {
+    await this.prismaService.user.create({
+      data: { username, password },
+    });
+  }
+
   async getByUsername(username: string): Promise<User> {
     const user = await this.prismaService.user.findUniqueOrThrow({
       where: {
