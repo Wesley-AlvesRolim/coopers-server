@@ -1,0 +1,12 @@
+version: '3'
+services:
+  db:
+    container_name: postgresql
+    image: postgres:15.2-alpine
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: database
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: example
