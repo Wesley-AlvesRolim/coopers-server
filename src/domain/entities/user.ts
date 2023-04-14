@@ -3,5 +3,5 @@ export interface User {
   username: string;
   password: string;
   createdAt: Date;
-  readAt: Date;
+  updatedAt: Date;
 }
