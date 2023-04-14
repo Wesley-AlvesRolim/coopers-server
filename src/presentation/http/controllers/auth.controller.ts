@@ -1,8 +1,8 @@
 import {
   Body,
   Controller,
-  HttpException,
-  HttpStatus,
+  ForbiddenException,
+  NotFoundException,
   Post,
 } from '@nestjs/common';
 import { User } from 'src/domain/entities/user';
@@ -21,10 +21,10 @@ export class AuthController {
     try {
       user = await this.userRepository.getByUsername(username);
     } catch (error) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      throw new NotFoundException('User not found');
     }
     if (user.password !== password) {
-      throw new HttpException('Invalid Credential', HttpStatus.FORBIDDEN);
+      throw new ForbiddenException('Invalid Credential');
     }
     return user;
   }
@@ -37,7 +37,7 @@ export class AuthController {
     try {
       await this.userRepository.create(username, password);
     } catch (error) {
-      throw new HttpException('User already exists', HttpStatus.FORBIDDEN);
+      throw new ForbiddenException('User already exists');
     }
   }
 }
