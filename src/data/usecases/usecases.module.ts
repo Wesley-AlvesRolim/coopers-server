@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 import {
   CreateTaskUsecaseType,
   ReadAllTaskUsecaseType,
+  UpdateTaskUsecaseType,
 } from 'src/domain/usecases';
-import { CreateTaskUsecase, ReadAllTaskUsecase } from '.';
+import { CreateTaskUsecase, ReadAllTaskUsecase, UpdateTaskUsecase } from '.';
 import { DatabaseModule } from 'src/infra/database/database.module';
 
 @Module({
@@ -16,6 +17,10 @@ import { DatabaseModule } from 'src/infra/database/database.module';
       provide: ReadAllTaskUsecaseType,
       useClass: ReadAllTaskUsecase,
     },
+    {
+      provide: UpdateTaskUsecaseType,
+      useClass: UpdateTaskUsecase,
+    },
   ],
   imports: [DatabaseModule],
   exports: [
@@ -26,6 +31,10 @@ import { DatabaseModule } from 'src/infra/database/database.module';
     {
       provide: ReadAllTaskUsecaseType,
       useClass: ReadAllTaskUsecase,
+    },
+    {
+      provide: UpdateTaskUsecaseType,
+      useClass: UpdateTaskUsecase,
     },
   ],
 })
