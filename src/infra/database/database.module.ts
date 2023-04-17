@@ -1,7 +1,10 @@
 import { Module } from '@nestjs/common';
 import { PrismaDatabaseService } from './prisma/prisma-database.service';
-import { UserRepository } from 'src/domain/repositories';
-import { PrismaUserRepository } from './prisma/repositories/prisma-user-repository';
+import { TasksRepository, UserRepository } from 'src/domain/repositories';
+import {
+  PrismaTaskRepository,
+  PrismaUserRepository,
+} from './prisma/repositories';
 
 @Module({
   providers: [
@@ -10,11 +13,19 @@ import { PrismaUserRepository } from './prisma/repositories/prisma-user-reposito
       provide: UserRepository,
       useClass: PrismaUserRepository,
     },
+    {
+      provide: TasksRepository,
+      useClass: PrismaTaskRepository,
+    },
   ],
   exports: [
     {
       provide: UserRepository,
       useClass: PrismaUserRepository,
+    },
+    {
+      provide: TasksRepository,
+      useClass: PrismaTaskRepository,
     },
   ],
 })
