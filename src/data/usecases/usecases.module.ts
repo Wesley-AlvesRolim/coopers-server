@@ -52,4 +52,4 @@ import { DatabaseModule } from 'src/infra/database/database.module';
     },
   ],
 })
-export class UsecasesMoudule {}
+export class UsecasesModule {}
