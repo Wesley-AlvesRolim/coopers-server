@@ -6,6 +6,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const prismaService = app.get(PrismaDatabaseService);
   await prismaService.enableShutdownHooks(app);
+  app.enableCors({
+    origin: process.env.CLIENT_URL,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type, Accept',
+    credentials: true,
+  });
   await app.listen(3001);
 }
 bootstrap();
