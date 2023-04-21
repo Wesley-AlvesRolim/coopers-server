@@ -26,6 +26,7 @@ export class AuthController {
     if (user.password !== password) {
       throw new ForbiddenException('Invalid Credential');
     }
+    delete user.password;
     return user;
   }
 
