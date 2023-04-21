@@ -49,6 +49,21 @@ export class PrismaTaskRepository implements TasksRepository {
     });
   }
 
+  async deleteAllByIsDone(authorId: number, isDone: boolean): Promise<void> {
+    await this.prismaService.task.deleteMany({
+      where: {
+        AND: [
+          {
+            authorId,
+          },
+          {
+            isDone,
+          },
+        ],
+      },
+    });
+  }
+
   private removeAuthorId(tasks: Task[]) {
     return tasks.map((task) => {
       delete task.authorId;
