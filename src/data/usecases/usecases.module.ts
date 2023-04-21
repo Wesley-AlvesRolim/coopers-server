@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
 import {
   CreateTaskUsecaseType,
+  DeleteAllTasksByIsDoneUsecaseType,
   DeleteTaskUsecaseType,
   ReadAllTaskUsecaseType,
   UpdateTaskUsecaseType,
 } from 'src/domain/usecases';
 import {
   CreateTaskUsecase,
+  DeleteAllTasksByIsDoneUsecase,
   DeleteTaskUsecase,
   ReadAllTaskUsecase,
   UpdateTaskUsecase,
@@ -18,6 +20,10 @@ import { DatabaseModule } from 'src/infra/database/database.module';
     {
       provide: CreateTaskUsecaseType,
       useClass: CreateTaskUsecase,
+    },
+    {
+      provide: DeleteAllTasksByIsDoneUsecaseType,
+      useClass: DeleteAllTasksByIsDoneUsecase,
     },
     {
       provide: DeleteTaskUsecaseType,
@@ -37,6 +43,10 @@ import { DatabaseModule } from 'src/infra/database/database.module';
     {
       provide: DeleteTaskUsecaseType,
       useClass: DeleteTaskUsecase,
+    },
+    {
+      provide: DeleteAllTasksByIsDoneUsecaseType,
+      useClass: DeleteAllTasksByIsDoneUsecase,
     },
     {
       provide: CreateTaskUsecaseType,
