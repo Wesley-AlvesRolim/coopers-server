@@ -6,4 +6,5 @@ export abstract class TasksRepository {
   create: (taskDto: TaskDto) => Promise<Task>;
   update: (taskId: number, taskDto: TaskDto) => Promise<Task>;
   delete: (taskId: number) => Promise<void>;
+  deleteAllByIsDone: (authorId: number, isDone: boolean) => Promise<void>;
 }
