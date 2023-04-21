@@ -6,12 +6,14 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { TaskDto } from 'src/domain/dtos';
 import { Task } from 'src/domain/entities';
 import {
   CreateTaskOutput,
   CreateTaskUsecaseType,
+  DeleteAllTasksByIsDoneUsecaseType,
   DeleteTaskUsecaseType,
   ReadAllTaskOutput,
   ReadAllTaskUsecaseType,
@@ -25,6 +27,7 @@ export class UserTaskController {
     private readonly createTaskUsecase: CreateTaskUsecaseType,
     private readonly updateTaskUsecase: UpdateTaskUsecaseType,
     private readonly deleteTaskUsecase: DeleteTaskUsecaseType,
+    private readonly deleteAllTasksByIsDoneUsecase: DeleteAllTasksByIsDoneUsecaseType,
   ) {}
 
   @Get(':id')
@@ -58,5 +61,16 @@ export class UserTaskController {
   @Delete(':id')
   async deleteTask(@Param('id') taskId: string): Promise<void> {
     await this.deleteTaskUsecase.execute({ id: taskId });
+  }
+
+  @Delete('/delete-all/:authorId')
+  async deleteTasksByIsDone(
+    @Param('authorId') authorId: string,
+    @Query('isDone') isDone: string,
+  ): Promise<void> {
+    await this.deleteAllTasksByIsDoneUsecase.execute({
+      authorId: +authorId,
+      isDone: isDone === 'true',
+    });
   }
 }
